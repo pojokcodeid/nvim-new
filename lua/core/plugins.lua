@@ -288,6 +288,7 @@ local astro_plugins = {
   ["mg979/vim-visual-multi"] = {},
   ["CRAG666/code_runner.nvim"] = {},
   ["mfussenegger/nvim-jdtls"] = {},
+  ["folke/tokyonight.nvim"] = {},
 }
 
 if astronvim.updater.snapshot then

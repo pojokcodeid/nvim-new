@@ -51,7 +51,7 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      home = 'C:/tools/jdk-17.0.2',
+      home = 'C:/tools/jdk-19.0.1',
       eclipse = {
         downloadSources = true,
       },
@@ -64,7 +64,7 @@ local config = {
           },
           {
             name = "JavaSE-19",
-            path = "C:/tools/jdk-19",
+            path = "C:/tools/jdk-19.0.1",
           }
         }
       },
