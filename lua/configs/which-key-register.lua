@@ -8,6 +8,7 @@ local mappings = {
       l = {
         name = "LSP",
         f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
+        I = { "<cmd>Mason<cr>", "Mason Install" }
       },
       u = { name = "UI" },
       r = {
