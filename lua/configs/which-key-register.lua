@@ -20,6 +20,11 @@ local mappings = {
         m = { "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
           "Run MVN" },
       },
+      m = {
+        name = "Markdown",
+        p = { "<cmd>MarkdownPreview<cr>", "Preview" },
+        s = { "<cmd>MarkdownPreviewStop<cr>", "Stop Preview" },
+      }
     },
   },
 }

@@ -293,7 +293,8 @@ local astro_plugins = {
     config = function()
       require("color-picker")
     end
-  }
+  },
+  ["iamcco/markdown-preview.nvim"] = {},
 }
 
 if astronvim.updater.snapshot then
