@@ -289,6 +289,11 @@ local astro_plugins = {
   ["CRAG666/code_runner.nvim"] = {},
   ["mfussenegger/nvim-jdtls"] = {},
   ["folke/tokyonight.nvim"] = {},
+  ["ziontee113/color-picker.nvim"] = {
+    config = function()
+      require("color-picker")
+    end
+  }
 }
 
 if astronvim.updater.snapshot then

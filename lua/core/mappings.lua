@@ -59,6 +59,8 @@ maps.i["<C-s>"] = { "<cmd>w<cr>", desc = "" }
 maps.i["<C-l>"] = { "<cmd>LiveServer start<cr><cr>", desc = "" }
 maps.n["q"] = { "<cmd>q<cr>", desc = "" }
 maps.v["<S-Down>"] = { ":'<,'>t'><cr>", desc = "" }
+maps.n["<C-c>"] = { "<cmd>PickColor<cr>", desc = "untuk memilih warna" }
+maps.i["<C-c>"] = { "<cmd>PickColorInsert<cr>", desc = "untuk memilih warna" }
 
 -- Alpha
 if is_available "alpha-nvim" then
