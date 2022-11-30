@@ -5,7 +5,10 @@ local mappings = {
     ["<leader>"] = {
       f = { name = "File" },
       p = { name = "Packages" },
-      l = { name = "LSP" },
+      l = {
+        name = "LSP",
+        f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
+      },
       u = { name = "UI" },
       r = {
         name = "Run",
