@@ -287,7 +287,6 @@ local astro_plugins = {
   ["manzeloth/live-server"] = {},
   ["mg979/vim-visual-multi"] = {},
   ["CRAG666/code_runner.nvim"] = {},
-  ["mfussenegger/nvim-jdtls"] = {},
   ["folke/tokyonight.nvim"] = {},
   ["ziontee113/color-picker.nvim"] = {
     config = function()
