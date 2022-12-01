@@ -295,6 +295,7 @@ local astro_plugins = {
     end
   },
   ["iamcco/markdown-preview.nvim"] = {},
+  ["williamboman/nvim-lsp-installer"] = {},
 }
 
 if astronvim.updater.snapshot then

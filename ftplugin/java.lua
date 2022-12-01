@@ -32,7 +32,7 @@ local config = {
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
-    -- '-javaagent:' .. lombok_path,
+    '-javaagent:' .. lombok_path,
     '-Xms1g',
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
@@ -51,7 +51,7 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      home = 'C:/tools/jdk-19.0.1',
+      home = 'C:/Program Files/Java/jdk-17.0.5',
       eclipse = {
         downloadSources = true,
       },
@@ -60,7 +60,7 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-17",
-            path = "C:/tools/jdk-17.0.2",
+            path = "C:/Program Files/Java/jdk-17.0.5",
           },
           {
             name = "JavaSE-19",
