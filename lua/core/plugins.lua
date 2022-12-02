@@ -288,11 +288,11 @@ local astro_plugins = {
   ["mg979/vim-visual-multi"] = {},
   ["CRAG666/code_runner.nvim"] = {},
   ["folke/tokyonight.nvim"] = {},
-  ["ziontee113/color-picker.nvim"] = {
-    config = function()
-      require("color-picker")
-    end
-  },
+  -- ["ziontee113/color-picker.nvim"] = {
+  --   config = function()
+  --     require("color-picker")
+  --   end
+  -- },
   ["iamcco/markdown-preview.nvim"] = {},
   ["williamboman/nvim-lsp-installer"] = {},
 }
