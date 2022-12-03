@@ -1,0 +1,12 @@
+{
+	"consoledotLog": {
+		"prefix": "console",
+		"body": "console.log(${1:object});",
+		"description": "Displays a message in the console"
+	},
+    "alert": {
+		"prefix": "alert",
+		"body": "alert(${1:object});",
+		"description": "Displays a message in the Popup Alert"
+	}
+}

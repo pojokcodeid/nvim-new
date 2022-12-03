@@ -1,3 +1,4 @@
+require("null-ls").setup(astronvim.user_plugin_opts("plugins.null-ls", { on_attach = astronvim.lsp.on_attach }))
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
   return
@@ -18,12 +19,10 @@ null_ls.setup({
   },
 
   -- on_attach = function(client)
-  -- on_attach = function()
-  --   vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async=true}")
-  --   --  if client.resolved_capabilities.document_formatting then
-  --   -- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()")
-  --   -- end
-  -- end
+  on_attach = function()
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async=true}")
+    --  if client.resolved_capabilities.document_formatting then
+    -- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()")
+    -- end
+  end,
 })
-
-require("null-ls").setup(astronvim.user_plugin_opts("plugins.null-ls", { on_attach = astronvim.lsp.on_attach }))
