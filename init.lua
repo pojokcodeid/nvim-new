@@ -29,9 +29,9 @@ if vim.fn.has("nvim-0.8") ~= 1 or vim.version().prerelease then
   end)
 end
 
-local colorscheme = "dracula"
+-- local colorscheme = "dracula"
 -- local colorscheme = "tokyonight"
--- local colorscheme = "onedark"
+local colorscheme = "default_theme"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
