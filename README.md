@@ -26,7 +26,7 @@
 10. Import Config Windows
 
 ```
-git clone https://github.com/pojokcode/nvim-new "$env:LOCALAPPDATA\nvim"
+git clone https://github.com/pojokcodeid/nvim-new.git "$env:LOCALAPPDATA\nvim"
 ```
 
 ## Panduan Linux
@@ -55,7 +55,7 @@ nvm install 18.12.0
 6.  Install Config
 
 ```
-git clone https://github.com/pojokcode/nvim-new ~/.config/nvim
+git clone https://github.com/pojokcodeid/nvim-new.git ~/.config/nvim
 ```
 
 ## Seting Bahasa Pemprograman
