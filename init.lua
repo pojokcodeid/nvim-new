@@ -12,7 +12,7 @@ for _, source in ipairs({
   "core.mappings",
   "configs.which-key-register",
   "configs.coderunner",
-  "configs.lsp",
+  "configs.lsp.configs",
   "configs.snip",
 }) do
   local status_ok, fault = pcall(require, source)
