@@ -8,5 +8,20 @@
 		"prefix": "alert",
 		"body": "alert(${1:object});",
 		"description": "Displays a message in the Popup Alert"
+	},
+	"author":{
+		"prefix": "@author",
+		"body":[
+			"<!-- ",
+			"Auuthor = Pojok Code",
+			"email   = pojokcodeid@gmail.com",
+			"Github  = https://github.com/pojokcodeid",
+			"Youtube = https://youtube.com/pojokcode",
+			"Date    = $CURRENT_YEAR-$CURRENT_MONTH-${CURRENT_DATE}",
+			"File    = $TM_FILENAME",
+			"note    = Penyalahgunaan kode ini bukan tanggung jawab pojok code",
+			"-->"
+			],
+		"description": "@author = Pojok Code"
 	}
 }
