@@ -1,4 +1,4 @@
-vim.opt.shortmess:append { s = true, I = true } -- disable startup message
+vim.opt.shortmess:append({ s = true, I = true }) -- disable startup message
 astronvim.vim_opts(astronvim.user_plugin_opts("options", {
   opt = {
     backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
@@ -34,7 +34,7 @@ astronvim.vim_opts(astronvim.user_plugin_opts("options", {
     timeoutlen = 300, -- Length of time to wait for a mapped sequence
     undofile = true, -- Enable persistent undo
     updatetime = 300, -- Length of time to wait before triggering the plugin
-    wrap = true, 
+    wrap = true,
     writebackup = false, -- Disable making a backup before overwriting a file
   },
   g = {
