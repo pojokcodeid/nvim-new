@@ -36,6 +36,9 @@ astronvim.vim_opts(astronvim.user_plugin_opts("options", {
     updatetime = 300, -- Length of time to wait before triggering the plugin
     wrap = true,
     writebackup = false, -- Disable making a backup before overwriting a file
+    -- guifont = "CaskaydiaCove_NF_Mono:h17:w6",
+    guifont = "Source_Code_Pro:h18",
+    -- gfw = "1",
   },
   g = {
     highlighturl_enabled = true, -- highlight URLs by default

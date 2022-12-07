@@ -38,6 +38,13 @@ maps.n["<leader>pl"] = { "<cmd>AstroChangelog<cr>", desc = "AstroNvim Changelog"
 maps.v["<A-j>"] = { ":m .+1<CR>==", desc = "move" }
 maps.v["<A-k>"] = { ":m .-2<CR>==", desc = "" }
 maps.v["p"] = { '"_dP', desc = "" }
+maps.i["<c-c>"] = { '"+y', desc = "" }
+maps.v["<c-c>"] = { '"+y', desc = "" }
+maps.n["<c-c>"] = { '"+y', desc = "" }
+maps.i["<c-v>"] = { "<c-r>+", desc = "" }
+-- maps.i["<c-v>"] = { '"+p', desc = "" }
+maps.n["<c-v>"] = { '"+p', desc = "" }
+maps.v["<c-v>"] = { '"+p', desc = "" }
 
 -- Visual Block --
 -- Move text up and down
