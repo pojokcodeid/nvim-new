@@ -37,7 +37,7 @@ astronvim.vim_opts(astronvim.user_plugin_opts("options", {
     wrap = true,
     writebackup = false, -- Disable making a backup before overwriting a file
     -- guifont = "CaskaydiaCove_NF_Mono:h17:w6",
-    guifont = "Source Code Pro:h19:w3",
+    guifont = "Source Code Pro:h17:w3",
     -- gfw = "1",
   },
   g = {
