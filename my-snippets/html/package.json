@@ -40,6 +40,14 @@
 			{
 				"language": "html",
 				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "html",
+				"path": "./javascript/javascript.json"
+			},
+			{
+				"language": "html",
+				"path": "./javascript/typescript.json"
 			}
 		]
 	}
