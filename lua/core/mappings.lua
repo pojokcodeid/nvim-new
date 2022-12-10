@@ -69,6 +69,8 @@ maps.n["<M-j>"] = { "<cmd>m+<cr>", desc = "" }
 maps.n["<M-k>"] = { "<cmd>m-2<cr>", desc = "" }
 maps.i["<C-s>"] = { "<cmd>w<cr>", desc = "" }
 maps.i["<C-l>"] = { "<cmd>LiveServer start<cr><cr>", desc = "" }
+maps.i["<C-f>"] = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", desc = "Format File" }
+maps.n["<C-f>"] = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", desc = "Format File" }
 maps.n["q"] = { "<cmd>q<cr>", desc = "" }
 maps.v["<S-Down>"] = { ":'<,'>t'><cr>", desc = "" }
 
