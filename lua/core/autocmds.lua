@@ -8,14 +8,18 @@ cmd({ "VimEnter", "FileType", "BufEnter", "WinEnter" }, {
   desc = "URL Highlighting",
   group = augroup("highlighturl", { clear = true }),
   pattern = "*",
-  callback = function() astronvim.set_url_match() end,
+  callback = function()
+    astronvim.set_url_match()
+  end,
 })
 
 cmd("FileType", {
   desc = "Unlist quickfist buffers",
   group = augroup("unlist_quickfist", { clear = true }),
   pattern = "qf",
-  callback = function() vim.opt_local.buflisted = false end,
+  callback = function()
+    vim.opt_local.buflisted = false
+  end,
 })
 
 cmd("BufEnter", {
@@ -24,7 +28,9 @@ cmd("BufEnter", {
   callback = function()
     local wins = vim.api.nvim_tabpage_list_wins(0)
     -- Both neo-tree and aerial will auto-quit if there is only a single window left
-    if #wins <= 1 then return end
+    if #wins <= 1 then
+      return
+    end
     local sidebar_fts = { aerial = true, ["neo-tree"] = true }
     for _, winid in ipairs(wins) do
       if vim.api.nvim_win_is_valid(winid) then
@@ -33,7 +39,7 @@ cmd("BufEnter", {
         -- If any visible windows are not sidebars, early return
         if not sidebar_fts[filetype] then
           return
-        -- If the visible window is a sidebar
+          -- If the visible window is a sidebar
         else
           -- only count filetypes once, so remove a found sidebar from the detection
           sidebar_fts[filetype] = nil
@@ -48,7 +54,7 @@ cmd("BufEnter", {
   end,
 })
 
-if is_available "alpha-nvim" then
+if is_available("alpha-nvim") then
   local group_name = augroup("alpha_settings", { clear = true })
   cmd("User", {
     desc = "Disable status and tablines for alpha",
@@ -74,7 +80,7 @@ if is_available "alpha-nvim" then
     group = group_name,
     callback = function()
       local should_skip = false
-      if vim.fn.argc() > 0 or vim.fn.line2byte "$" ~= -1 or not vim.o.modifiable then
+      if vim.fn.argc() > 0 or vim.fn.line2byte("$") ~= -1 or not vim.o.modifiable then
         should_skip = true
       else
         for _, arg in pairs(vim.v.argv) do
@@ -85,20 +91,24 @@ if is_available "alpha-nvim" then
         end
       end
       if not should_skip then
-        if is_available "bufferline.nvim" then pcall(require, "bufferline") end
+        if is_available("bufferline.nvim") then
+          pcall(require, "bufferline")
+        end
         require("alpha").start(true)
       end
     end,
   })
 end
 
-if is_available "neo-tree.nvim" then
+if is_available("neo-tree.nvim") then
   cmd("BufEnter", {
     desc = "Open Neo-Tree on startup with directory",
     group = augroup("neotree_start", { clear = true }),
     callback = function()
       local stats = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
-      if stats and stats.type == "directory" then require("neo-tree.setup.netrw").hijack() end
+      if stats and stats.type == "directory" then
+        require("neo-tree.setup.netrw").hijack()
+      end
     end,
   })
 end
@@ -108,24 +118,26 @@ cmd({ "VimEnter", "ColorScheme" }, {
   group = augroup("astronvim_highlights", { clear = true }),
   callback = function()
     if vim.g.colors_name then
-      for _, module in ipairs { "init", vim.g.colors_name } do
+      for _, module in ipairs({ "init", vim.g.colors_name }) do
         for group, spec in pairs(user_plugin_opts("highlights." .. module)) do
           vim.api.nvim_set_hl(0, group, spec)
         end
       end
     end
-    astronvim.event "ColorScheme"
+    astronvim.event("ColorScheme")
   end,
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
   group = vim.api.nvim_create_augroup("git_plugin_lazy_load", { clear = true }),
   callback = function()
-    vim.fn.system("git -C " .. vim.fn.expand "%:p:h" .. " rev-parse")
+    vim.fn.system("git -C " .. vim.fn.expand("%:p:h") .. " rev-parse")
     if vim.v.shell_error == 0 then
-      vim.api.nvim_del_augroup_by_name "git_plugin_lazy_load"
+      vim.api.nvim_del_augroup_by_name("git_plugin_lazy_load")
       for _, plugin in ipairs(astronvim.git_plugins) do
-        vim.schedule(function() require("packer").loader(plugin) end)
+        vim.schedule(function()
+          require("packer").loader(plugin)
+        end)
       end
     end
   end,
@@ -133,36 +145,46 @@ vim.api.nvim_create_autocmd("BufRead", {
 vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
   group = vim.api.nvim_create_augroup("file_plugin_lazy_load", { clear = true }),
   callback = function()
-    local title = vim.fn.expand "%"
-    if not (title == "" or title == "[packer]" or title:match "^neo%-tree%s+filesystem") then
-      vim.api.nvim_del_augroup_by_name "file_plugin_lazy_load"
+    local title = vim.fn.expand("%")
+    if not (title == "" or title == "[packer]" or title:match("^neo%-tree%s+filesystem")) then
+      vim.api.nvim_del_augroup_by_name("file_plugin_lazy_load")
       for _, plugin in ipairs(astronvim.file_plugins) do
         if plugin == "nvim-treesitter" then
           require("packer").loader(plugin)
         else
-          vim.schedule(function() require("packer").loader(plugin) end)
+          vim.schedule(function()
+            require("packer").loader(plugin)
+          end)
         end
       end
     end
   end,
 })
 
-create_command(
-  "AstroUpdatePackages",
-  function() astronvim.updater.update_packages() end,
-  { desc = "Update Packer and Mason" }
-)
-create_command("AstroUpdate", function() astronvim.updater.update() end, { desc = "Update AstroNvim" })
-create_command("AstroReload", function() astronvim.updater.reload() end, { desc = "Reload AstroNvim" })
-create_command("AstroVersion", function() astronvim.updater.version() end, { desc = "Check AstroNvim Version" })
-create_command("AstroChangelog", function() astronvim.updater.changelog() end, { desc = "Check AstroNvim Changelog" })
-create_command("ToggleHighlightURL", function() astronvim.ui.toggle_url_match() end, { desc = "Toggle URL Highlights" })
+create_command("AstroUpdatePackages", function()
+  astronvim.updater.update_packages()
+end, { desc = "Update Packer and Mason" })
+create_command("AstroUpdate", function()
+  astronvim.updater.update()
+end, { desc = "Update AstroNvim" })
+create_command("AstroReload", function()
+  astronvim.updater.reload()
+end, { desc = "Reload AstroNvim" })
+create_command("AstroVersion", function()
+  astronvim.updater.version()
+end, { desc = "Check AstroNvim Version" })
+create_command("AstroChangelog", function()
+  astronvim.updater.changelog()
+end, { desc = "Check AstroNvim Changelog" })
+create_command("ToggleHighlightURL", function()
+  astronvim.ui.toggle_url_match()
+end, { desc = "Toggle URL Highlights" })
 
-if is_available "mason.nvim" then
-  create_command("MasonUpdateAll", function() astronvim.mason.update_all() end, { desc = "Update Mason Packages" })
-  create_command(
-    "MasonUpdate",
-    function(opts) astronvim.mason.update(opts.args) end,
-    { nargs = 1, desc = "Update Mason Package" }
-  )
+if is_available("mason.nvim") then
+  create_command("MasonUpdateAll", function()
+    astronvim.mason.update_all()
+  end, { desc = "Update Mason Packages" })
+  create_command("MasonUpdate", function(opts)
+    astronvim.mason.update(opts.args)
+  end, { nargs = 1, desc = "Update Mason Package" })
 end
