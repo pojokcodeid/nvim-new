@@ -420,6 +420,7 @@ local astro_plugins = {
       --vim.g.gruvbox_flat_style = "dark"
       vim.g.gruvbox_flat_style = "hard"
       vim.g.gruvbox_transparent = true
+      vim.g.gruvbox_underline = 0
     end,
   },
 }
