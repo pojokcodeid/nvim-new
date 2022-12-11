@@ -413,11 +413,7 @@ local astro_plugins = {
   -- },
   ["iamcco/markdown-preview.nvim"] = {},
   ["williamboman/nvim-lsp-installer"] = {},
-  ["dracula/vim"] = {
-    config = function()
-      vim.o.background = "dark"
-    end,
-  },
+  ["dracula/vim"] = {},
   ["eddyekofo94/gruvbox-flat.nvim"] = {
     config = function()
       vim.o.background = "dark"
