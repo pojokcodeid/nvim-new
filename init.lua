@@ -31,7 +31,8 @@ end
 
 -- local colorscheme = "dracula"
 -- local colorscheme = "tokyonight-storm"
-local colorscheme = "default_theme"
+-- local colorscheme = "default_theme"
+local colorscheme = "gruvbox-flat"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then

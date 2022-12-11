@@ -89,10 +89,11 @@ local config = {
     -- Modify the color palette for the default theme
     colors = {
       fg = "#abb2bf",
-      bg = "#1e222a",
+      -- bg = "#1e222a",
+      bg = "#2d3149",
     },
     highlights = function(hl) -- or a function that returns a new table of colors to set
-      local C = require "default_theme.colors"
+      local C = require("default_theme.colors")
 
       hl.Normal = { fg = C.fg, bg = C.bg }
 

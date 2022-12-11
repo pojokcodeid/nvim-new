@@ -413,7 +413,17 @@ local astro_plugins = {
   -- },
   ["iamcco/markdown-preview.nvim"] = {},
   ["williamboman/nvim-lsp-installer"] = {},
-  ["dracula/vim"] = {},
+  ["dracula/vim"] = {
+    config = function()
+      vim.o.background = "dark"
+    end,
+  },
+  ["eddyekofo94/gruvbox-flat.nvim"] = {
+    config = function()
+      vim.o.background = "dark"
+      vim.g.gruvbox_flat_style = "hard"
+    end,
+  },
 }
 
 if astronvim.updater.snapshot then
