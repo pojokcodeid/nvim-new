@@ -63,6 +63,7 @@ require("material").setup({
   custom_colors = nil, -- If you want to everride the default colors, set this to a function
   custom_highlights = {
     --CursorLine = { fg = "#62B6B7", underline = false },
-    CursorLine = { bg = "#303742", underline = false },
+    --CursorLine = { bg = "#303742", underline = false },
+    CursorLine = { bg = "#282c34", underline = false },
   },
 })
