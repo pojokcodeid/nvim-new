@@ -29,20 +29,20 @@ require("material").setup({
     -- Available plugins:
     -- "dap",
     -- "dashboard",
-    -- "gitsigns",
+    "gitsigns",
     -- "hop",
-    -- "indent-blankline",
+    "indent-blankline",
     -- "lspsaga",
     -- "mini",
     -- "neogit",
-    -- "nvim-cmp",
+    "nvim-cmp",
     -- "nvim-navic",
     -- "nvim-tree",
-    -- "nvim-web-devicons",
+    "nvim-web-devicons",
     -- "sneak",
-    -- "telescope",
+    "telescope",
     -- "trouble",
-    -- "which-key",
+    "which-key",
   },
 
   disable = {
@@ -62,6 +62,7 @@ require("material").setup({
   async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
   custom_colors = nil, -- If you want to everride the default colors, set this to a function
   custom_highlights = {
-    CursorLine = { fg = "#62B6B7", underline = false },
+    --CursorLine = { fg = "#62B6B7", underline = false },
+    CursorLine = { bg = "#303742", underline = false },
   },
 })
