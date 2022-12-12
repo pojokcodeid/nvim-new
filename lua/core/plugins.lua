@@ -411,6 +411,7 @@ local astro_plugins = {
   --     require("color-picker")
   --   end
   -- },
+  ["kaicataldo/material.vim"] = {},
   ["iamcco/markdown-preview.nvim"] = {},
   ["williamboman/nvim-lsp-installer"] = {},
   ["dracula/vim"] = {},

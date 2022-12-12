@@ -33,6 +33,7 @@ end
 -- local colorscheme = "tokyonight-storm"
 local colorscheme = "default_theme"
 -- local colorscheme = "gruvbox-flat"
+vim.g.material_theme_style = "palenight-community"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
