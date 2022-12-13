@@ -14,7 +14,7 @@ for _, source in ipairs({
   "configs.coderunner",
   "configs.lsp.configs",
   "configs.snip",
-  "configs.material-theme",
+  -- "configs.material-theme",
 }) do
   local status_ok, fault = pcall(require, source)
   if not status_ok then
@@ -32,23 +32,23 @@ end
 
 -- local colorscheme = "dracula"
 -- local colorscheme = "tokyonight-storm"
-local colorscheme = "default_theme"
+-- local colorscheme = "default_theme"
 -- local colorscheme = "gruvbox-flat"
 -- local colorscheme = "oceanic_material"
 -- local colorscheme = "material"
 
-vim.g.oceanic_material_transparent_background = 1
-vim.g.oceanic_material_allow_underline = 0
-vim.g.oceanic_material_allow_undercurl = 0
+-- vim.g.oceanic_material_transparent_background = 1
+-- vim.g.oceanic_material_allow_underline = 0
+-- vim.g.oceanic_material_allow_undercurl = 0
 
 -- vim.g.material_theme_style = "palenight-community"
 -- vim.g.material_transparent_background = 1
 
 -- vim.g.material_style = "deep ocean"
-vim.g.material_style = "darker"
+-- vim.g.material_style = "darker"
 -- vim.g.material_style = "palenight"
 
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  return
-end
+-- local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+-- if not status_ok then
+--   return
+-- end
