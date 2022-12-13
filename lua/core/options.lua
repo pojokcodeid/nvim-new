@@ -42,6 +42,17 @@ astronvim.vim_opts(astronvim.user_plugin_opts("options", {
     -- gfw = "1",
   },
   g = {
+    -- ini config untuk neovide
+    neovide_floating_blur_amount_x = 2.0,
+    neovide_floating_blur_amount_y = 2.0,
+    neovide_transparency = 0.8,
+    neovide_underline_automatic_scaling = false,
+    neovide_refresh_rate = 60,
+    neovide_refresh_rate_idle = 5,
+    neovide_confirm_quit = true,
+    neovide_remember_window_size = true,
+    neovide_cursor_vfx_mode = "ripple",
+    -- end config neovide
     highlighturl_enabled = true, -- highlight URLs by default
     mapleader = " ", -- set leader key
     zipPlugin = false, -- disable zip
