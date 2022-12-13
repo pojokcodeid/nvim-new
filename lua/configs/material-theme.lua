@@ -1,4 +1,4 @@
-local colors = require("material.colors")
+-- local colors = require("material.colors")
 
 require("material").setup({
 
@@ -60,10 +60,16 @@ require("material").setup({
 
   lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
   async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
-  custom_colors = nil, -- If you want to everride the default colors, set this to a function
+  --custom_colors = nil, -- If you want to everride the default colors, set this to a function
   custom_highlights = {
     --CursorLine = { fg = "#62B6B7", underline = false },
     CursorLine = { bg = "#303742", underline = false },
     --CursorLine = { bg = "#282c34", underline = false },
   },
+  custom_colors = function(colors)
+    --colors.editor.bg = "#SOME_COLOR"
+    --colors.main.purple = "#SOME_COLOR"
+    --colors.lsp.error = "#SOME_COLOR"
+    --colors.syntax.comments = "#777d86"
+  end,
 })

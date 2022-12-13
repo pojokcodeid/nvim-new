@@ -32,10 +32,10 @@ end
 
 -- local colorscheme = "dracula"
 -- local colorscheme = "tokyonight-storm"
--- local colorscheme = "default_theme"
+local colorscheme = "default_theme"
 -- local colorscheme = "gruvbox-flat"
 -- local colorscheme = "oceanic_material"
-local colorscheme = "material"
+-- local colorscheme = "material"
 
 vim.g.oceanic_material_transparent_background = 1
 vim.g.oceanic_material_allow_underline = 0

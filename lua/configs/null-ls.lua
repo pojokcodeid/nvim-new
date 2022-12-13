@@ -21,7 +21,7 @@ null_ls.setup({
     diagnostics.flake8,
   },
 
-  on_attach = function()
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async=true}")
-  end,
+  -- on_attach = function()
+  --   vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format{async=true}")
+  -- end,
 })
