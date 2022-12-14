@@ -1,4 +1,4 @@
-vim.opt.shortmess:append({ s = true, I = true }) -- disable startup message
+vim.opt.shortmess:append { s = true, I = true } -- disable startup message
 astronvim.vim_opts(astronvim.user_plugin_opts("options", {
   opt = {
     backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
@@ -34,26 +34,10 @@ astronvim.vim_opts(astronvim.user_plugin_opts("options", {
     timeoutlen = 300, -- Length of time to wait for a mapped sequence
     undofile = true, -- Enable persistent undo
     updatetime = 300, -- Length of time to wait before triggering the plugin
-    wrap = true,
+    wrap = false, -- Disable wrapping of lines longer than the width of window
     writebackup = false, -- Disable making a backup before overwriting a file
-    -- guifont = "CaskaydiaCove_NF_Mono:h17:w6",
-    guifont = "Source Code Pro:h17:w3",
-    -- guifont = "Cascadia Code:h17:w3",
-    -- gfw = "1",
   },
   g = {
-    -- ini config untuk neovide
-    neovide_floating_blur_amount_x = 2.0,
-    neovide_floating_blur_amount_y = 2.0,
-    neovide_transparency = 0.8,
-    neovide_underline_automatic_scaling = false,
-    neovide_refresh_rate = 60,
-    neovide_refresh_rate_idle = 5,
-    neovide_confirm_quit = true,
-    neovide_remember_window_size = true,
-    neovide_cursor_vfx_mode = "ripple",
-    neovide_scale_factor = 1.0,
-    -- end config neovide
     highlighturl_enabled = true, -- highlight URLs by default
     mapleader = " ", -- set leader key
     zipPlugin = false, -- disable zip

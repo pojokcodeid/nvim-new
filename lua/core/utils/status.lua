@@ -21,8 +21,8 @@ astronvim.status.env.modes = {
   ["i"] = { "INSERT", "insert" },
   ["ic"] = { "INSERT", "insert" },
   ["ix"] = { "INSERT", "insert" },
-  ["t"] = { "TERM", "insert" },
-  ["nt"] = { "TERM", "insert" },
+  ["t"] = { "TERM", "terminal" },
+  ["nt"] = { "TERM", "terminal" },
   ["v"] = { "VISUAL", "visual" },
   ["vs"] = { "VISUAL", "visual" },
   ["V"] = { "LINES", "visual" },
@@ -217,11 +217,19 @@ end
 -- @usage local heirline_component = { provider = astronvim.status.provider.search_count() }
 -- @see astronvim.status.utils.stylize
 function astronvim.status.provider.search_count(opts)
+  local search_func = vim.tbl_isempty(opts or {}) and function() return vim.fn.searchcount() end
+    or function() return vim.fn.searchcount(opts) end
   return function()
-    local search = (opts and not vim.tbl_isempty(opts)) and vim.fn.searchcount(opts) or vim.fn.searchcount()
-    if search.total then
+    local search_ok, search = pcall(search_func)
+    if search_ok and type(search) == "table" and search.total then
       return astronvim.status.utils.stylize(
-        string.format("%d/%d", search.current, math.min(search.total, search.maxcount)),
+        string.format(
+          "%s%d/%s%d",
+          search.current > search.maxcount and ">" or "",
+          math.min(search.current, search.maxcount),
+          search.incomplete == 2 and ">" or "",
+          math.min(search.total, search.maxcount)
+        ),
         opts
       )
     end
@@ -900,7 +908,11 @@ end
 -- @usage local heirline_component = astronvim.status.component.lsp()
 function astronvim.status.component.lsp(opts)
   opts = astronvim.default_tbl(opts, {
-    lsp_progress = { str = "", padding = { right = 1 } },
+    lsp_progress = {
+      str = "",
+      padding = { right = 1 },
+      update = { "User", pattern = { "LspProgressUpdate", "LspRequest" } },
+    },
     lsp_client_names = {
       str = "LSP",
       update = { "LspAttach", "LspDetach", "BufEnter" },

@@ -5,31 +5,14 @@ local mappings = {
     ["<leader>"] = {
       f = { name = "File" },
       p = { name = "Packages" },
-      l = {
-        name = "LSP",
-        f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
-        I = { "<cmd>Mason<cr>", "Mason Install" }
-      },
+      l = { name = "LSP" },
       u = { name = "UI" },
-      r = {
-        name = "Run",
-        r = { "<cmd>RunCode<CR>", "Run Code" },
-        f = { "<cmd>RunFile<CR>", "Run File" },
-        p = { "<cmd>RunProject<CR>", "Run Project" },
-        g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
-        m = { "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
-          "Run MVN" },
-      },
-      m = {
-        name = "Markdown",
-        p = { "<cmd>MarkdownPreview<cr>", "Preview" },
-        s = { "<cmd>MarkdownPreviewStop<cr>", "Stop Preview" },
-      }
     },
   },
 }
 
 local extra_sections = {
+  D = "Debugger",
   g = "Git",
   s = "Search",
   S = "Session",
@@ -53,6 +36,8 @@ if is_available "telescope.nvim" then
   init_table("n", "<leader>", "s")
   init_table("n", "<leader>", "g")
 end
+
+if is_available "nvim-dap" then init_table("n", "<leader>", "D") end
 
 if is_available "Comment.nvim" then
   for _, mode in ipairs { "n", "v" } do

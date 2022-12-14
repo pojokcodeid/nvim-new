@@ -256,6 +256,23 @@ function astronvim.initialize_packer()
   end
 end
 
+function astronvim.lazy_load_commands(plugin, commands)
+  if type(commands) == "string" then commands = { commands } end
+  if astronvim.is_available(plugin) and not packer_plugins[plugin].loaded then
+    for _, command in ipairs(commands) do
+      pcall(
+        vim.cmd,
+        string.format(
+          'command -nargs=* -range -bang -complete=file %s lua require("packer.load")({"%s"}, { cmd = "%s", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)',
+          command,
+          plugin,
+          command
+        )
+      )
+    end
+  end
+end
+
 --- Set vim options with a nested table like API with the format vim.<first_key>.<second_key>.<value>
 -- @param options the nested table of vim options
 function astronvim.vim_opts(options)
@@ -513,7 +530,7 @@ function astronvim.cmd(cmd, show_error)
   if not success and (show_error == nil and true or show_error) then
     vim.api.nvim_err_writeln("Error running command: " .. cmd .. "\nError message:\n" .. result)
   end
-  return success and result or nil
+  return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
 end
 
 require "core.utils.ui"

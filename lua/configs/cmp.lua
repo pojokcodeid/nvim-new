@@ -4,7 +4,7 @@ local lspkind_status_ok, lspkind = pcall(require, "lspkind")
 if not snip_status_ok then return end
 local setup = cmp.setup
 local border_opts =
-{ border = "single", winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None" }
+  { border = "single", winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None" }
 
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -54,8 +54,7 @@ setup(astronvim.user_plugin_opts("plugins.cmp", {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
-    -- ["<CR>"] = cmp.mapping.confirm { select = false },
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<CR>"] = cmp.mapping.confirm { select = ture },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
