@@ -6,7 +6,7 @@ require("material").setup({
     terminal = false, -- Enable contrast for the built-in terminal
     sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
     floating_windows = false, -- Enable contrast for floating windows
-    cursor_line = true, -- Enable darker background for the cursor line
+    cursor_line = false, -- Enable darker background for the cursor line
     non_current_windows = false, -- Enable darker background for non-current windows
     filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
   },
@@ -70,6 +70,6 @@ require("material").setup({
     --colors.editor.bg = "#SOME_COLOR"
     --colors.main.purple = "#SOME_COLOR"
     --colors.lsp.error = "#SOME_COLOR"
-    --colors.syntax.comments = "#777d86"
+    colors.syntax.comments = "#777d86"
   end,
 })

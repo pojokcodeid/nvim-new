@@ -47,10 +47,10 @@ local config = {
   options = {
     opt = {
       -- set to true or false etc.
-      -- relativenumber = true, -- sets vim.opt.relativenumber
-      -- number = true, -- sets vim.opt.number
-      -- spell = true, -- sets vim.opt.spell
-      -- signcolumn = "auto", -- sets vim.opt.signcolumn to auto
+      relativenumber = true, -- sets vim.opt.relativenumber
+      number = true, -- sets vim.opt.number
+      spell = true, -- sets vim.opt.spell
+      signcolumn = "auto", -- sets vim.opt.signcolumn to auto
       wrap = true, -- sets vim.opt.wrap
       guifont = "Source Code Pro:h17:w3",
     },
@@ -58,7 +58,7 @@ local config = {
       -- ini config untuk neovide
       neovide_floating_blur_amount_x = 2.0,
       neovide_floating_blur_amount_y = 2.0,
-      neovide_transparency = 0.85,
+      neovide_transparency = 0.8,
       neovide_underline_automatic_scaling = false,
       neovide_refresh_rate = 60,
       neovide_refresh_rate_idle = 5,
