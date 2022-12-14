@@ -5,8 +5,9 @@
 -- normal format is "key = value". These also handle array like data structures
 -- where a value with no key simply has an implicit numeric key
 require ("user.lsp")
-require ("user.alpha")
-require ("user.material-theme")
+-- require ("user.alpha")
+-- require ("user.material-theme")
+-- require ("user.dracula-config")
 
 local config = {
 
@@ -30,8 +31,9 @@ local config = {
   },
 
   -- Set colorscheme to use
-  -- colorscheme = "default_theme",
-  colorscheme = "material",
+  colorscheme = "default_theme",
+  -- colorscheme = "dracula",
+  -- colorscheme = "material",
 
   -- Add highlight groups in any theme
   highlights = {
@@ -58,7 +60,7 @@ local config = {
       -- ini config untuk neovide
       neovide_floating_blur_amount_x = 2.0,
       neovide_floating_blur_amount_y = 2.0,
-      neovide_transparency = 0.85,
+      neovide_transparency = 1,
       neovide_underline_automatic_scaling = false,
       neovide_refresh_rate = 60,
       neovide_refresh_rate_idle = 5,
@@ -89,7 +91,14 @@ local config = {
 
   -- Set dashboard header
   header = {
-    
+    [[                                      GGG              ]],
+    [[                                     #GGG              ]],
+    [[    &BBGBB      &#G#&GB&        &BBB##GGG    &#BGBB#&  ]],
+    [[   BGGGB##  &#GP555& P555GB&   #GGG##GGGG   #GGB&&BGG# ]],
+    [[  &GGG&    G555GB&    &#G5Y5P  BGGB  #GGG   GGGB  #GGG ]],
+    [[  &GGG&    G555GB&    &#G555P  BGGB  #GGG   GGG#       ]],
+    [[   BGGGBBB  &#GP5Y5& P555G#&   #GGGB#GGGG   #GGB&&#BB# ]],
+    [[    &BBBB#      &#G#&GB&        &BBB##BBB    &#BBBB#&  ]],
   },
 
   -- Default theme configuration
@@ -329,16 +338,7 @@ local config = {
         end,
       },
       ["williamboman/nvim-lsp-installer"] = {},
-      ["dracula/vim"] = {},
-      ["eddyekofo94/gruvbox-flat.nvim"] = {
-        config = function()
-          vim.o.background = "dark"
-          --vim.g.gruvbox_flat_style = "dark"
-          vim.g.gruvbox_flat_style = "hard"
-          vim.g.gruvbox_transparent = true
-          vim.g.gruvbox_underline = 0
-        end,
-      },
+      ["Mofiqul/dracula.nvim"] = {},
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
