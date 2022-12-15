@@ -4,7 +4,12 @@
 -- You can think of a Lua "table" as a dictionary like data structure the
 -- normal format is "key = value". These also handle array like data structures
 -- where a value with no key simply has an implicit numeric key
-require ("user.lsp")
+-- require ("user.lsp")
+local status_ok, lsp_user = pcall(require, "user.lsp")
+if not status_ok then
+	return
+end
+
 -- require ("user.alpha")
 -- require ("user.material-theme")
 -- require ("user.dracula-config")
@@ -393,14 +398,15 @@ local config = {
   -- The value can also be set to a boolean for disabling default sources:
   -- false == disabled
   -- true == 1000
-  cmp = {
-    source_priority = {
-      nvim_lsp = 1000,
-      luasnip = 750,
-      buffer = 500,
-      path = 250,
-    },
-  },
+  -- cmp = {
+  --   source_priority = {
+  --     nvim_lsp = 1000,
+  --     luasnip = 750,
+  --     buffer = 500,
+  --     path = 250,
+  --   },
+  -- },
+  
 
   -- Modify which-key registration (Use this with mappings table in the above.)
   ["which-key"] = {
