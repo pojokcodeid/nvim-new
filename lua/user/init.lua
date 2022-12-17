@@ -5,14 +5,14 @@
 -- normal format is "key = value". These also handle array like data structures
 -- where a value with no key simply has an implicit numeric key
 -- require ("user.lsp")
-local status_ok, lsp_user = pcall(require, "user.lsp")
-if not status_ok then
-	return
-end
+-- local status_ok, lsp_user = pcall(require, "user.lsp")
+-- if not status_ok then return end
 
 -- require ("user.alpha")
--- require ("user.material-theme")
--- require ("user.dracula-config")
+-- require ("user.colorscheme.material-theme")
+-- require ("user.colorscheme.dracula-config")
+require "user.lsp"
+require "user.colorscheme.tokyonight-config"
 
 local config = {
 
@@ -36,7 +36,8 @@ local config = {
   },
 
   -- Set colorscheme to use
-  colorscheme = "default_theme",
+  -- colorscheme = "default_theme",
+  colorscheme = "tokyonight-storm",
   -- colorscheme = "dracula",
   -- colorscheme = "material",
 
@@ -119,10 +120,10 @@ local config = {
       hl.Normal = { fg = C.fg, bg = C.bg }
 
       -- New approach instead of diagnostic_style
-      hl.DiagnosticError.italic = true
-      hl.DiagnosticHint.italic = true
-      hl.DiagnosticInfo.italic = true
-      hl.DiagnosticWarn.italic = true
+      -- hl.DiagnosticError.italic = true
+      -- hl.DiagnosticHint.italic = true
+      -- hl.DiagnosticInfo.italic = true
+      -- hl.DiagnosticWarn.italic = true
 
       return hl
     end,
@@ -159,13 +160,6 @@ local config = {
   -- Extend LSP configuration
   lsp = {
     skip_setup = { "clangd" },
-    ["server-settings"] = {
-      clangd = {
-        capabilities = {
-          offsetEncoding = "utf-8",
-        },
-      },
-    },
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
@@ -218,6 +212,11 @@ local config = {
       --     },
       --   },
       -- },
+      clangd = {
+        capabilities = {
+          offsetEncoding = "utf-8",
+        },
+      },
     },
   },
 
@@ -228,10 +227,10 @@ local config = {
   -- automatically pick-up stored data by this setting.)
   mappings = {
     -- first key is the mode
-    
+
     -- Mapping AKN
-    -- Move text up and down  
-    i = {     
+    -- Move text up and down
+    i = {
       ["<c-c>"] = { '"+y', desc = "" },
       ["<c-v>"] = { "<c-r>+", desc = "" },
       ["<S-Down>"] = { "<cmd>t.<cr>", desc = "" },
@@ -242,7 +241,11 @@ local config = {
       ["<C-l>"] = { "<cmd>LiveServer start<cr><cr>", desc = "" },
       ["<C-f>"] = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", desc = "Format File" },
     },
-    v = {    
+    v = {
+      ["<C-]>"] = {
+        "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+        desc = "Toggle comment line",
+      },
       ["<A-j>"] = { ":m .+1<CR>==", desc = "move" },
       ["<A-k>"] = { ":m .-2<CR>==", desc = "" },
       ["p"] = { '"_dP', desc = "" },
@@ -250,15 +253,16 @@ local config = {
       ["<c-v>"] = { '"+p', desc = "" },
       ["J"] = { ":move '>+1<CR>gv-gv", desc = "" },
       ["K"] = { ":move '<-2<CR>gv-gv", desc = "" },
-      ["<A-j>"] = { ":move '>+1<CR>gv-gv", desc = "" },
+      -- ["<A-j>"] = { ":move '>+1<CR>gv-gv", desc = "" },
       ["<A-Down>"] = { ":move '>+1<CR>gv-gv", desc = "" },
-      ["<A-k>"] = { ":move '<-2<CR>gv-gv", desc = "" },
+      -- ["<A-k>"] = { ":move '<-2<CR>gv-gv", desc = "" },
       ["<A-Up>"] = { ":move '<-2<CR>gv-gv", desc = "" },
       ["<S-Down>"] = { ":'<,'>t'><cr>", desc = "" },
     },
     n = {
       -- second key is the lefthand side of the map
       -- mappings seen under group name "Buffer"
+      ["<C-]>"] = { function() require("Comment.api").toggle.linewise.current() end, desc = "Comment line" },
       ["<c-c>"] = { '"+y', desc = "" },
       ["<c-v>"] = { '"+p', desc = "" },
       ["<S-Down>"] = { "<cmd>t.<cr>", desc = "" },
@@ -276,7 +280,7 @@ local config = {
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       -- quick save
-      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command     
+      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     },
     t = {
       -- setting a mapping to false will disable it
@@ -321,9 +325,7 @@ local config = {
       ["manzeloth/live-server"] = {},
       ["mg979/vim-visual-multi"] = {},
       ["CRAG666/code_runner.nvim"] = {
-        config = function()
-          require("user.coderunner")
-        end,
+        config = function() require "user.coderunner" end,
       },
       ["folke/tokyonight.nvim"] = {},
       -- ["ziontee113/color-picker.nvim"] = {
@@ -333,14 +335,10 @@ local config = {
       -- },
       ["glepnir/oceanic-material"] = {},
       ["marko-cerovac/material.nvim"] = {
-        config = function()
-          require("user.material-theme")
-        end,
+        config = function() require "user.colorscheme.material-theme" end,
       },
       ["iamcco/markdown-preview.nvim"] = {
-        config = function()
-          require("user.markdown-config")
-        end,
+        config = function() require "user.markdown-config" end,
       },
       ["williamboman/nvim-lsp-installer"] = {},
       ["Mofiqul/dracula.nvim"] = {},
@@ -366,7 +364,7 @@ local config = {
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
       -- ensure_installed = { "sumneko_lua" },
-      ensure_installed = { },
+      ensure_installed = {},
     },
     -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
     ["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
@@ -387,7 +385,7 @@ local config = {
     vscode = {
       -- Add paths for including more VS Code style snippets in luasnip
       paths = {
-        vim.fn.stdpath("config") .. "/my-snippets" 
+        vim.fn.stdpath "config" .. "/my-snippets",
       },
     },
   },
@@ -398,15 +396,14 @@ local config = {
   -- The value can also be set to a boolean for disabling default sources:
   -- false == disabled
   -- true == 1000
-  -- cmp = {
-  --   source_priority = {
-  --     nvim_lsp = 1000,
-  --     luasnip = 750,
-  --     buffer = 500,
-  --     path = 250,
-  --   },
-  -- },
-  
+  cmp = {
+    source_priority = {
+      nvim_lsp = 1000,
+      luasnip = 750,
+      buffer = 500,
+      path = 250,
+    },
+  },
 
   -- Modify which-key registration (Use this with mappings table in the above.)
   ["which-key"] = {
@@ -422,7 +419,7 @@ local config = {
           ["l"] = {
             name = "LSP",
             f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
-            I = { "<cmd>Mason<cr>", "Mason Install" }
+            I = { "<cmd>Mason<cr>", "Mason Install" },
           },
           ["r"] = {
             name = "Run",
@@ -430,14 +427,16 @@ local config = {
             f = { "<cmd>RunFile<CR>", "Run File" },
             p = { "<cmd>RunProject<CR>", "Run Project" },
             g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
-            m = { "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
-              "Run MVN" },
+            m = {
+              "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
+              "Run MVN",
+            },
           },
           ["m"] = {
             name = "Markdown",
             p = { "<cmd>MarkdownPreview<cr>", "Preview" },
             s = { "<cmd>MarkdownPreviewStop<cr>", "Stop Preview" },
-          }
+          },
         },
       },
     },
@@ -463,4 +462,3 @@ local config = {
 }
 
 return config
-
