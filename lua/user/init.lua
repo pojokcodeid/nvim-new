@@ -43,27 +43,13 @@
 --   -- Insert mode
 --   vim.keymap.set("i", "<C-k>", function() vim.fn.VSCodeNotify("editor.action.insertLineBefore") end)
 -- end
+local ls_conf = pcall(require, "user.lsp")
+if not ls_conf then return end
+-- require "user.lsp"
+local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_status_ok then return end
 
 local config = {
-
-  -- Configure AstroNvim updates
-  updater = {
-    remote = "origin", -- remote to use
-    channel = "nightly", -- "stable" or "nightly"
-    version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-    branch = "main", -- branch name (NIGHTLY ONLY)
-    commit = nil, -- commit hash (NIGHTLY ONLY)
-    pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
-    skip_prompts = false, -- skip prompts about breaking changes
-    show_changelog = true, -- show the changelog after performing an update
-    auto_reload = false, -- automatically reload and sync packer after a successful update
-    auto_quit = false, -- automatically quit the current session after a successful update
-    -- remotes = { -- easily add new remotes to track
-    --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
-    --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
-    --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
-    -- },
-  },
 
   -- Set colorscheme to use
   -- colorscheme = "default_theme",
@@ -113,6 +99,45 @@ local config = {
       status_diagnostics_enabled = true, -- enable diagnostics in statusline
       icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
       ui_notifications_enabled = true, -- disable notifications when toggling UI elements
+      backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
+      clipboard = "unnamedplus", -- Connection to the system clipboard
+      cmdheight = 0, -- hide command line unless needed
+      completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
+      copyindent = true, -- Copy the previous indentation on autoindenting
+      cursorline = true, -- Highlight the text line of the cursor
+      expandtab = true, -- Enable the use of space in tab
+      fileencoding = "utf-8", -- File content encoding for the buffer
+      fillchars = { eob = " " }, -- Disable `~` on nonexistent lines
+      history = 100, -- Number of commands to remember in a history table
+      ignorecase = true, -- Case insensitive searching
+      laststatus = 3, -- globalstatus
+      lazyredraw = true, -- lazily redraw screen
+      mouse = "a", -- Enable mouse support
+      number = true, -- Show numberline
+      preserveindent = true, -- Preserve indent structure as much as possible
+      pumheight = 10, -- Height of the pop up menu
+      relativenumber = true, -- Show relative numberline
+      scrolloff = 8, -- Number of lines to keep above and below the cursor
+      shiftwidth = 2, -- Number of space inserted for indentation
+      showmode = false, -- Disable showing modes in command line
+      showtabline = 2, -- always display tabline
+      sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
+      signcolumn = "yes", -- Always show the sign column
+      smartcase = true, -- Case sensitivie searching
+      splitbelow = true, -- Splitting a new window below the current one
+      splitright = true, -- Splitting a new window at the right of the current one
+      swapfile = false, -- Disable use of swapfile for the buffer
+      tabstop = 2, -- Number of space in a tab
+      termguicolors = true, -- Enable 24-bit RGB color in the TUI
+      timeoutlen = 300, -- Length of time to wait for a mapped sequence
+      undofile = true, -- Enable persistent undo
+      updatetime = 300, -- Length of time to wait before triggering the plugin
+      wrap = true, -- Disable wrapping of lines longer than the width of window
+      writebackup = false, -- Disable making a backup before overwriting a file
+      -- minimal number of screen columns either side of cursor if wrap is `false`
+      -- guifont = "monospace:h17", -- the font used in graphical neovim applications
+      guifont = "Source_Code_Pro:h17", -- the font used in graphical neovim applications
+      whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
     },
   },
   -- If you need more control, you can use the function()...end notation
@@ -126,15 +151,23 @@ local config = {
   -- end,
 
   -- Set dashboard header
+  -- header = {
+  --   [[                  __        __                      .___      ]],
+  --   [[______   ____    |__| ____ |  | __   ____  ____   __| _/____  ]],
+  --   [[\____ \ /  _ \   |  |/  _ \|  |/ / _/ ___\/  _ \ / __ |/ __ \ ]],
+  --   [[|  |_> >  <_> )  |  (  <_> )    <  \  \__(  <_> ) /_/ \  ___/ ]],
+  --   [[|   __/ \____/\__|  |\____/|__|_ \  \___  >____/\____ |\___  >]],
+  --   [[|__|         \______|           \/      \/           \/    \/ ]],
+  -- },
   header = {
-    [[                                      GGG              ]],
-    [[                                     #GGG              ]],
-    [[    &BBGBB      &#G#&GB&        &BBB##GGG    &#BGBB#&  ]],
-    [[   BGGGB##  &#GP555& P555GB&   #GGG##GGGG   #GGB&&BGG# ]],
-    [[  &GGG&    G555GB&    &#G5Y5P  BGGB  #GGG   GGGB  #GGG ]],
-    [[  &GGG&    G555GB&    &#G555P  BGGB  #GGG   GGG#       ]],
-    [[   BGGGBBB  &#GP5Y5& P555G#&   #GGGB#GGGG   #GGB&&#BB# ]],
-    [[    &BBBB#      &#G#&GB&        &BBB##BBB    &#BBBB#&  ]],
+    [[             _       _                    _      ]],
+    [[            (_)     | |                  | |     ]],
+    [[ _ __   ___  _  ___ | | __   ___ ___   __| | ___ ]],
+    [[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
+    [[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
+    [[| .__/ \___/| |\___/|_|\_\  \___\___/ \__,_|\___|]],
+    [[| |        _/ |                                  ]],
+    [[|_|       |__/                                   ]],
   },
 
   -- Default theme configuration
@@ -168,9 +201,9 @@ local config = {
       hop = false,
       indent_blankline = true,
       lightspeed = false,
-      ["neo-tree"] = true,
+      ["neo-tree"] = false,
       notify = true,
-      ["nvim-tree"] = false,
+      ["nvim-tree"] = true,
       ["nvim-web-devicons"] = true,
       rainbow = true,
       symbols_outline = false,
@@ -189,11 +222,13 @@ local config = {
 
   -- Extend LSP configuration
   lsp = {
-    skip_setup = { "clangd","jdtls" },
+    --skip_setup = { "clangd", "jdtls" },
+    skip_setup = { "clangd" },
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
     },
+
     formatting = {
       -- control auto formatting on save
       format_on_save = {
@@ -247,55 +282,55 @@ local config = {
           offsetEncoding = "utf-8",
         },
       },
-      jdtls = function()
-        -- use this function notation to build some variables
-        local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-        local root_dir = require("jdtls.setup").find_root(root_markers)
-
-        -- calculate workspace dir
-        local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-        local workspace_dir = vim.fn.stdpath "data" .. "/site/java/workspace-root/" .. project_name
-        os.execute("mkdir " .. workspace_dir)
-
-        -- get the mason install path
-        local install_path = require("mason-registry").get_package("jdtls"):get_install_path()
-
-        -- get the current OS
-        local os
-        if vim.fn.has "macunix" then
-          os = "mac"
-        elseif vim.fn.has "win32" then
-          os = "win"
-        else
-          os = "linux"
-        end
-
-        -- return the server config
-        return {
-          cmd = {
-            "java",
-            "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-            "-Dosgi.bundles.defaultStartLevel=4",
-            "-Declipse.product=org.eclipse.jdt.ls.core.product",
-            "-Dlog.protocol=true",
-            "-Dlog.level=ALL",
-            "-javaagent:" .. install_path .. "/lombok.jar",
-            "-Xms1g",
-            "--add-modules=ALL-SYSTEM",
-            "--add-opens",
-            "java.base/java.util=ALL-UNNAMED",
-            "--add-opens",
-            "java.base/java.lang=ALL-UNNAMED",
-            "-jar",
-            vim.fn.glob(install_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-            "-configuration",
-            install_path .. "/config_" .. os,
-            "-data",
-            workspace_dir,
-          },
-          root_dir = root_dir,
-        }
-      end,
+      -- jdtls = function()
+      --   -- use this function notation to build some variables
+      --   local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+      --   local root_dir = require("jdtls.setup").find_root(root_markers)
+      --
+      --   -- calculate workspace dir
+      --   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+      --   local workspace_dir = vim.fn.stdpath "data" .. "/site/java/workspace-root/" .. project_name
+      --   os.execute("mkdir " .. workspace_dir)
+      --
+      --   -- get the mason install path
+      --   local install_path = require("mason-registry").get_package("jdtls"):get_install_path()
+      --
+      --   -- get the current OS
+      --   local os
+      --   if vim.fn.has "macunix" then
+      --     os = "mac"
+      --   elseif vim.fn.has "win32" then
+      --     os = "win"
+      --   else
+      --     os = "linux"
+      --   end
+      --
+      --   -- return the server config
+      --   return {
+      --     cmd = {
+      --       "java",
+      --       "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+      --       "-Dosgi.bundles.defaultStartLevel=4",
+      --       "-Declipse.product=org.eclipse.jdt.ls.core.product",
+      --       "-Dlog.protocol=true",
+      --       "-Dlog.level=ALL",
+      --       "-javaagent:" .. install_path .. "/lombok.jar",
+      --       "-Xms1g",
+      --       "--add-modules=ALL-SYSTEM",
+      --       "--add-opens",
+      --       "java.base/java.util=ALL-UNNAMED",
+      --       "--add-opens",
+      --       "java.base/java.lang=ALL-UNNAMED",
+      --       "-jar",
+      --       vim.fn.glob(install_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+      --       "-configuration",
+      --       install_path .. "/config_" .. os,
+      --       "-data",
+      --       workspace_dir,
+      --     },
+      --     root_dir = root_dir,
+      --   }
+      -- end,
     },
   },
 
@@ -309,7 +344,7 @@ local config = {
 
     -- Mapping AKN
     -- Move text up and down
-    
+
     i = {
       ["<c-c>"] = { '"+y', desc = "" },
       ["<c-v>"] = { "<c-r>+", desc = "" },
@@ -393,7 +428,7 @@ local config = {
       --   end,
       -- },
       --add by akn
-      ["mfussenegger/nvim-jdtls"] = { module = "jdtls" }, -- load jdtls on module
+      -- ["mfussenegger/nvim-jdtls"] = { module = "jdtls" }, -- load jdtls on module
       {
         "p00f/clangd_extensions.nvim",
         after = "mason-lspconfig.nvim", -- make sure to load after mason-lspconfig
@@ -409,9 +444,7 @@ local config = {
         config = function() require "user.coderunner" end,
       },
       ["folke/tokyonight.nvim"] = {
-        config = function()
-          require("user.colorscheme.tokyonight-config")
-        end
+        config = function() require "user.colorscheme.tokyonight-config" end,
       },
       -- ["ziontee113/color-picker.nvim"] = {
       --   config = function()
@@ -427,6 +460,9 @@ local config = {
       },
       ["williamboman/nvim-lsp-installer"] = {},
       ["Mofiqul/dracula.nvim"] = {},
+      ["kyazdani42/nvim-tree.lua"] = {
+        config = function() require "user.nvim-tree" end,
+      },
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
@@ -438,18 +474,15 @@ local config = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
         -- Set a formatter
-        --null_ls.builtins.formatting.stylua,
-        --null_ls.builtins.formatting.prettier,
+        -- null_ls.builtins.formatting.stylua,
+        -- null_ls.builtins.formatting.prettier,
       }
       return config -- return final config table
     end,
-    treesitter = { -- overrides `require("treesitter").setup(...)`
-      -- ensure_installed = { "lua" },
-    },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
       -- ensure_installed = { "sumneko_lua" },
-      ensure_installed = {"jdtls"},
+      ensure_installed = { "jdtls" },
     },
     -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
     ["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
@@ -470,7 +503,7 @@ local config = {
     vscode = {
       -- Add paths for including more VS Code style snippets in luasnip
       paths = {
-        vim.fn.stdpath "config" .. "/my-snippets",
+        vim.fn.stdpath "config" .. "/lua/user/my-snippets",
       },
     },
   },
@@ -500,11 +533,12 @@ local config = {
         ["<leader>"] = {
           -- third key is the key to bring up next level and its displayed
           -- group name in which-key top level menu
+          ["e"] = { "<cmd>NvimTreeToggle<cr>", "Exploler" },
           ["b"] = { name = "Buffer" },
           ["l"] = {
             name = "LSP",
             f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
-            I = { "<cmd>Mason<cr>", "Mason Install" },
+            M = { ":Mason<cr>", "Mason Install" },
           },
           ["r"] = {
             name = "Run",
