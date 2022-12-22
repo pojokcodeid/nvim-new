@@ -46,8 +46,6 @@
 local ls_conf = pcall(require, "user.lsp")
 if not ls_conf then return end
 -- require "user.lsp"
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then return end
 
 local config = {
 
@@ -577,13 +575,13 @@ local config = {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
-    vim.api.nvim_create_autocmd("Filetype", {
-      pattern = "java", -- autocmd to start jdtls
-      callback = function()
-        local config = astronvim.lsp.server_settings "jdtls"
-        if config.root_dir and config.root_dir ~= "" then require("jdtls").start_or_attach(config) end
-      end,
-    })
+    -- vim.api.nvim_create_autocmd("Filetype", {
+    --   pattern = "java", -- autocmd to start jdtls
+    --   callback = function()
+    --     local config = astronvim.lsp.server_settings "jdtls"
+    --     if config.root_dir and config.root_dir ~= "" then require("jdtls").start_or_attach(config) end
+    --   end,
+    -- })
   end,
 }
 
