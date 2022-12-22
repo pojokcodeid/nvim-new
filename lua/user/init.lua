@@ -193,7 +193,7 @@ local config = {
       aerial = true,
       beacon = false,
       bufferline = true,
-      cmp = true,
+      cmp = false,
       dashboard = true,
       highlighturl = true,
       hop = false,
@@ -461,6 +461,8 @@ local config = {
       ["kyazdani42/nvim-tree.lua"] = {
         config = function() require "user.nvim-tree" end,
       },
+      -- Completion engine
+      ["hrsh7th/nvim-cmp"] = { event = "InsertEnter", config = function() require "user.cmp" end },
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
