@@ -1,4 +1,4 @@
-# astro-config
+## untuk mac & linux
 ```
 git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 nvim +PackerSync

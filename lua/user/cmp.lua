@@ -1,21 +1,14 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-  return
-end
-
 local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-  return
-end
+if not snip_status_ok then return end
 
-require("luasnip/loaders/from_vscode").lazy_load()
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then return end
 
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
---   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
   Method = "m",
@@ -43,29 +36,39 @@ local kind_icons = {
   Operator = "",
   TypeParameter = "",
 }
--- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
+  -- snippet = {
+  --   -- REQUIRED - you must specify a snippet engine
+  --   expand = function(args)
+  --     vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+  --     -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+  --     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+  --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+  --   end,
+  -- },
   snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
-    end,
+    expand = function(args) luasnip.lsp_expand(args.body) end,
   },
-  mapping = {
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert {
     ["<Up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
     ["<Down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ["<C-y>"] = cmp.config.disable,
     ["<C-e>"] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
-    -- Accept currently selected item. If none selected, `select` first item.
-    -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -83,6 +86,7 @@ cmp.setup {
       "i",
       "s",
     }),
+
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -111,23 +115,14 @@ cmp.setup {
       return vim_item
     end,
   },
-  sources = {
+
+  sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "luasnip" },
+    { name = "vsnip" }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
     { name = "buffer" },
-    { name = "path" },
-  },
-  confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = false,
-  },
-  window = {
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    },
-  },
-  experimental = {
-    ghost_text = false,
-    native_menu = false,
-  },
+  }),
 }
