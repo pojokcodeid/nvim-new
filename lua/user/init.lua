@@ -51,8 +51,8 @@ local config = {
 
   -- Set colorscheme to use
   -- colorscheme = "default_theme",
-  -- colorscheme = "tokyonight",
-  colorscheme = "tokyonight-night",
+  colorscheme = "tokyonight",
+  -- colorscheme = "tokyonight-night",
   -- colorscheme = "darkplus",
   -- colorscheme = "dracula",
   -- colorscheme = "material",
@@ -441,9 +441,6 @@ local config = {
         config = function() require "user.colorscheme.tokyonight-config" end,
       },
       ["glepnir/oceanic-material"] = {},
-      ["marko-cerovac/material.nvim"] = {
-        config = function() require "user.colorscheme.material-theme" end,
-      },
       ["Mofiqul/dracula.nvim"] = {},
       -- ["lunarvim/darkplus.nvim"] = {},
       -- ["lunarvim/Onedarker.nvim"] = {},
