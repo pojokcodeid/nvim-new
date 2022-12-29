@@ -98,6 +98,10 @@
         "path": "./B5-Snippets/snippets/bootstrap.json"
       },
       {
+        "language": "javascript",
+        "path": "./B5-Snippets/snippets/bootstrap.json"
+      },
+      {
         "language": "twig",
         "path": "./B5-Snippets/snippets/bootstrap.json"
       },
